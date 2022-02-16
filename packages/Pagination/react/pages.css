@@ -1,0 +1,108 @@
+.eble-page {
+  margin: 0 auto;
+  text-align: center;
+}
+.eble-page div,
+.eble-page ul,
+.eble-page p {
+  padding: 0;
+  margin: 0;
+}
+.eble-page *[role="button"],
+input,
+button {
+  outline: none;
+  border: none;
+}
+.eble-page-ul li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+.eble-page-ul li:last-child {
+  margin-right: 0;
+}
+.eble-page-ul li:hover {
+  background-color: #f00;
+  color: #fff;
+}
+li.choose-page {
+  cursor: default;
+  background-color: #f00;
+  color: #fff;
+}
+li.forbid-page,
+li.forbid-page:hover {
+  cursor: default;
+  background: #aaa;
+  color: #fff;
+  pointer-events: none;
+}
+li.eble-page-omit {
+  border: none;
+  cursor: default;
+}
+li.jump-page {
+  border: none;
+  width: 170px;
+  margin-left: 5px;
+  cursor: default;
+}
+li.jump-page:hover,
+li.eble-page-omit:hover {
+  background: none;
+  color: #111;
+}
+.jump-page input {
+  width: 30px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+}
+.jump-page button {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 5px;
+  background: #f00;
+  width: 45px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 3px;
+  color: #fff;
+}
+div.eble-alter {
+  position: fixed;
+  padding: 5px 10px;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -150px;
+  z-index: 99;
+  background-color: #fff;
+  box-shadow: 0 5px 20px #ddd;
+  transition: top ease-in 0.1s, opacity ease-in 0.2s;
+  opacity: 0;
+}
+.eble-alter.eble-alter-display {
+  top: 50px;
+  opacity: 1;
+}
+.eble-alter button {
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  background: #f00;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 10px;
+}

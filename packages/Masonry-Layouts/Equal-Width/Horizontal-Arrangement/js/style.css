@@ -1,0 +1,14 @@
+html,
+body,
+div {
+  margin: 0;
+  padding: 0;
+}
+.domDiv {
+  position: relative;
+}
+.pubuliu {
+  text-align: center;
+  color: #fff;
+  position: absolute;
+}
