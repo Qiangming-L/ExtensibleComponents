@@ -1,0 +1,20 @@
+.clearfix:after {
+  content: ".";
+  height: 0;
+  display: block;
+  clear: both;
+}
+.masonry-layouts {
+  width: 100%;
+  position: relative;
+}
+.masonry-layouts-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.masonry-layouts-list img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: bottom;
+}
