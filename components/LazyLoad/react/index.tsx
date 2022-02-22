@@ -1,34 +1,23 @@
 import React from "react";
 
-interface Style {
-  top?: number;
-  left?: number;
-  width?: number;
-  marginBottom?: number;
-  height?: number;
-  opacity?: number;
-}
-
 interface Props {
-  url?: string;
   showImg?: boolean;
-  index?: number;
   defaultImg?: string;
   className?: string;
-  children?: React.ReactElement;
-  style?: Style;
+  data: any;
+  children?: React.ReactNode;
+  onClick?: (data: any, event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const LazyLoad: React.FC<Props> = (props) => {
   const {
-    url,
-    showImg,
-    index,
     defaultImg = require("../img/default.gif"),
-    className,
+    className = "masonry-layouts-list",
     children,
-    style,
+    data,
+    onClick,
   } = props;
+  const { url, imgWidth, imgHeight, showImg, number, ...style } = data;
 
   const imgObserver = new IntersectionObserver(
     (entries) => {
@@ -44,15 +33,17 @@ const LazyLoad: React.FC<Props> = (props) => {
     }
   );
   const imgLazyLoad = (event: any): void => {
+    event.target.src = defaultImg;
     imgObserver.observe(event.target);
   };
 
   return (
     <div
-      className={`masonry-layouts-list ${className || ""}`}
+      className={className}
       style={style || undefined}
+      onClick={onClick ? (event) => onClick(data, event) : undefined}
     >
-      <img src={defaultImg} data-src={url} alt="" onLoad={imgLazyLoad} />
+      <img src="" data-src={url} alt="" onError={imgLazyLoad} />
       {children}
     </div>
   );

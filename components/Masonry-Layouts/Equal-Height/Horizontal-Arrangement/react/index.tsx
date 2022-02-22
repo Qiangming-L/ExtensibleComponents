@@ -160,15 +160,7 @@ const MasonryLayouts: React.FC<Props> = (props) => {
       }}
     >
       {imgUrlArray.map((item: any, index: number) => {
-        const { url, showImg, number, ...style } = item;
-        return (
-          <LazyLoad
-            url={url}
-            key={`masonry-layouts-${index}`}
-            style={style}
-            index={index}
-          />
-        );
+        return <LazyLoad key={`masonry-layouts-${index}`} data={item} />;
       })}
     </div>
   );
