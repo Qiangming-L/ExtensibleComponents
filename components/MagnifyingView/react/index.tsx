@@ -11,22 +11,22 @@ type Style = {
 };
 
 interface Props {
-  isImmediately?: boolean; // Whether to enable animation on first load
-  classname?: string;
-  childClassname?: string;
+  isImmediately?: boolean; // default => false (Whether to enable animation on first load)
+  className?: string;
+  childClassName?: string;
   children?: React.ReactElement;
   style?: Style;
-  setTime?: number; // Timer events => modify the event needs to be synchronized to modify the CSS "transition" events
+  setTime?: number; // default => 500 (Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events')
   parentOnClick?: () => void;
-  magnifyingEndStyle?: Style; // Animation final style
+  magnifyingEndStyle?: Style; // default => {width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", } (Animation final style)
 }
 
 const MagnifyingView: React.FC<Props> = (props) => {
   const magnifyingView: any = useRef(null);
   const timer: any = useRef(null);
   const {
-    classname,
-    childClassname,
+    className,
+    childClassName,
     children,
     style,
     setTime = 500,
@@ -110,12 +110,12 @@ const MagnifyingView: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`magnifying-view ${isAnimation} ${classname || ""}`}
+      className={`magnifying-view ${isAnimation} ${className || ""}`}
       onClick={(event) => handleClick(event)}
       style={{ ...style, ...modificationStyle, ...endAnimation }}
     >
       <div
-        className={`magnifying-view-content ${childClassname || ""}`}
+        className={`magnifying-view-content ${childClassName || ""}`}
         ref={magnifyingView}
       >
         {children}
