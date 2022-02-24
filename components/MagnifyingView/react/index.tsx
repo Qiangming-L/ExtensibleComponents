@@ -14,7 +14,7 @@ interface Props {
   isImmediately?: boolean; // default => false (Whether to enable animation on first load)
   className?: string;
   childClassName?: string;
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   style?: Style;
   setTime?: number; // default => 500 (Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events')
   parentOnClick?: () => void;

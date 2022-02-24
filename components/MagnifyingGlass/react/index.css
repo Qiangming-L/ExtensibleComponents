@@ -1,0 +1,27 @@
+.magnifying-glass {
+  position: relative;
+}
+.magnifying-glass img {
+  vertical-align: bottom;
+}
+.magnifying-glass-normal img {
+  width: 100%;
+}
+.mask-layer {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  cursor: move;
+}
+.magnifying-glass-normal:hover ~ .mask-layer,
+.mask-layer:hover,
+.magnifying-glass:hover .magnifying-glass-magnifying {
+  display: block;
+}
+.magnifying-glass-magnifying {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 700px;
+}
