@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 import "./index.css";
 
@@ -6,10 +6,14 @@ type Props = {
   url: string;
   children?: React.ReactNode;
   className?: string;
-  maskLayerStyle?: React.CSSProperties; // default => {width: 200, height: 200} (Mask layer CSS)
+  // display image CSS
   normalStyle?: {
-    // display image CSS
     width?: number; // default => 600
+    height?: number;
+  };
+  // default => {width: 200, height: 200} (Mask layer CSS)
+  maskLayerStyle?: {
+    width?: number; // default => 200
     height?: number;
   };
   multiple?: number; // default => 2 (The picture in the magnifying glass is several times larger than the original one)
@@ -28,15 +32,12 @@ const MagnifyingGlass: React.FC<Props> = (props) => {
     },
     maskLayerStyle = {
       width: 200,
-      height: 200,
     },
   } = props;
 
   const __maskLayerStyle = {
-    width:
-      (maskLayerStyle.width as number) || (maskLayerStyle.height as number),
-    height:
-      (maskLayerStyle.height as number) || (maskLayerStyle.width as number),
+    width: (maskLayerStyle.width || maskLayerStyle.height) as number,
+    height: (maskLayerStyle.height || maskLayerStyle.width) as number,
   };
 
   const __magnifyingStyle = {
@@ -48,6 +49,15 @@ const MagnifyingGlass: React.FC<Props> = (props) => {
   const [magnifyingImg, setMagnifyingImg] = useState<React.CSSProperties>();
   const [maskLayer, setMaskLayer] =
     useState<React.CSSProperties>(__maskLayerStyle);
+
+  useLayoutEffect(() => {
+    if (normalStyle && !normalStyle.width && !normalStyle.height) {
+      throw new Error("normalStyle must contain either width or height");
+    }
+    if (maskLayerStyle && !maskLayerStyle.width && !maskLayerStyle.height) {
+      throw new Error("maskLayerStyle must contain either width or height");
+    }
+  }, []);
 
   // Initialize the CSS parameters for the enlarged image
   useEffect(() => {

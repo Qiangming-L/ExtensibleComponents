@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
 import "./index.css";
 
@@ -54,6 +54,12 @@ const MasonryLayouts: React.FC<Props> = (props) => {
     Array<Style & PropsStyle & Other>
   >([]);
 
+  useLayoutEffect(() => {
+    if (masonryLayoutsStyle && !masonryLayoutsStyle.height) {
+      throw new Error("masonryLayoutsStyle must contain height");
+    }
+  }, []);
+
   // Initialization Data and listen for browser width changes
   useEffect(() => {
     const provisionalityUrl: Array<any> = [];
@@ -62,7 +68,11 @@ const MasonryLayouts: React.FC<Props> = (props) => {
       const img = new Image();
       img.src = masonryLayoutsArray[i].url;
       img.onload = img.onerror = () => {
-        const { height, marginBottom, marginRight } = masonryLayoutsStyle;
+        const {
+          height,
+          marginBottom = 0,
+          marginRight = 0,
+        } = masonryLayoutsStyle;
         const width = Math.round((height / img.height) * img.width);
         provisionalityUrl.push({
           url: masonryLayoutsArray[i].url,
