@@ -1,0 +1,52 @@
+.date-picker-popup-main,
+.date-picker-popup-body {
+  width: 310px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  justify-items: center;
+}
+.segment-selection {
+  width: 650px;
+}
+.date-picker-popup-date,
+.date-picker-popup-day {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+.date-picker-popup-date {
+  cursor: pointer;
+}
+.date-picker-popup-date:hover {
+  background-color: #eee;
+}
+.choose-day,
+.choose-day:hover {
+  background-color: #bbb;
+}
+.disable-date {
+  cursor: default;
+  background-color: #eee;
+  color: rgba(0, 0, 0, 0.3);
+}
+.false-choice,
+.false-choice:hover {
+  background-color: #ccc;
+  color: rgba(0, 0, 0, 0.5);
+}
+.date-picker-before,
+.date-picker-after {
+  color: rgba(0, 0, 0, 0.3);
+}
+.date-picker-popup-content {
+  height: 100%;
+}

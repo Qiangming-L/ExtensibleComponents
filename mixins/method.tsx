@@ -63,7 +63,8 @@ export const flatteningArray: Function = (
 // Reference equalObject
 export const equalArray: Function = (
   arrayOne: Array<any> = [],
-  arrayTwo: Array<any> = []
+  arrayTwo: Array<any> = [],
+  deepness: boolean = false
 ): boolean => {
   if (
     Object.prototype.toString.call(arrayOne) !== "[object Array]" ||
@@ -78,12 +79,16 @@ export const equalArray: Function = (
   if (arrayOne.length > 0 && arrayOne.length === arrayTwo.length) {
     const Length = arrayOne.length;
     for (let i = 0; i < Length; i++) {
-      if (Object.prototype.toString.call(arrayOne[i]) === "[object Array]") {
+      if (
+        deepness &&
+        Object.prototype.toString.call(arrayOne[i]) === "[object Array]"
+      ) {
         isEqual = equalArray(arrayOne[i], arrayTwo[i]);
         if (!isEqual) {
           break;
         }
       } else if (
+        deepness &&
         Object.prototype.toString.call(arrayOne[i]) === "[object Object]"
       ) {
         isEqual = equalObject(arrayOne[i], arrayTwo[i]);
@@ -113,7 +118,11 @@ export const equalArray: Function = (
 };
 
 // // Reference equalArray
-export const equalObject: Function = (ObjOne: any, objTwo: any): boolean => {
+export const equalObject: Function = (
+  ObjOne: any,
+  objTwo: any,
+  deepness: boolean = false
+): boolean => {
   if (
     Object.prototype.toString.call(ObjOne) !== "[object Object]" ||
     Object.prototype.toString.call(objTwo) !== "[object Object]"
@@ -135,12 +144,16 @@ export const equalObject: Function = (ObjOne: any, objTwo: any): boolean => {
     return isEqual;
   }
   for (let key in ObjOne) {
-    if (Object.prototype.toString.call(ObjOne[key]) === "[object Array]") {
+    if (
+      deepness &&
+      Object.prototype.toString.call(ObjOne[key]) === "[object Array]"
+    ) {
       isEqual = equalArray(ObjOne[key], objTwo[key]);
       if (!isEqual) {
         break;
       }
     } else if (
+      deepness &&
       Object.prototype.toString.call(ObjOne[key]) === "[object Object]"
     ) {
       isEqual = equalObject(ObjOne[key], objTwo[key]);
