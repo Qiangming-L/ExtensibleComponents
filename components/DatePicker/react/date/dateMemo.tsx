@@ -7,8 +7,13 @@ import { timestamp } from "../../../../mixins/timestamp";
 type Props = {
   dataArr: Array<Data>;
   daysText?: Array<string>;
-  dateText?: string;
+  dateText?: {
+    year: string;
+    month?: string;
+  };
   children?: React.ReactNode;
+  moduleName?: string;
+  disableHeaderButton?: boolean;
 };
 
 const DateMemo: React.FC<Props> = (props) => {
@@ -16,24 +21,46 @@ const DateMemo: React.FC<Props> = (props) => {
     dataArr,
     daysText = ["日", "一", "二", "三", "四", "五", "六"],
     children,
-    dateText = timestamp("YYYY年MM月"),
+    dateText = {
+      year: timestamp("YYYY年"),
+      month: timestamp("MM月"),
+    },
+    disableHeaderButton = true,
+    moduleName = "date",
   } = props;
   return (
     <div className="date-picker-popup-content">
       <div className="date-picker-popup-header">
         <span className="years-month">
-          <span className="date-picker-year">{dateText}</span>
+          <span
+            className={`date-picker-header-text year-text ${
+              disableHeaderButton || moduleName === "year" ? "disable-year" : ""
+            }`}
+            data-data="year"
+          >
+            {dateText.year}
+          </span>
+          {dateText.month ? (
+            <span
+              className="date-picker-header-text month-text"
+              data-data="month"
+            >
+              {dateText.month}
+            </span>
+          ) : null}
         </span>
       </div>
       <div className="date-picker-popup-body">
         {children}
-        {daysText.map((item) => {
-          return (
-            <span className="date-picker-popup-day" key={`days-${item}`}>
-              {item}
-            </span>
-          );
-        })}
+        {moduleName === "date"
+          ? daysText.map((item) => {
+              return (
+                <span className="date-picker-popup-day" key={`days-${item}`}>
+                  {item}
+                </span>
+              );
+            })
+          : null}
         {dataArr?.map((item) => {
           const {
             fullData,
