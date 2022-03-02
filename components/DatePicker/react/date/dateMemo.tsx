@@ -42,7 +42,9 @@ const DateMemo: React.FC<Props> = (props) => {
           </span>
           {dateText.month ? (
             <span
-              className="date-picker-header-text month-text"
+              className={`date-picker-header-text month-text ${
+                disableHeaderButton ? "disable-year" : ""
+              }`}
               data-data="month"
             >
               {dateText.month}
