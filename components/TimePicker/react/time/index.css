@@ -1,6 +1,5 @@
 .time-picker-popup-main {
   --Optionheight: 30px;
-  --sureHeight: 25px;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -40,7 +39,7 @@
   justify-content: center;
   justify-items: center;
 }
-.data-picker-choose-time {
+.time-picker-choose-time {
   position: absolute;
   top: calc(50% - var(--sureHeight));
   left: 0;
@@ -49,18 +48,5 @@
   transform: translateY(-50%);
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
-}
-.time-picker-popup-main-sure {
-  position: absolute;
-  right: 20px;
-  bottom: 10px;
-  height: var(--sureHeight);
-  line-height: var(--sureHeight);
-  text-align: center;
-  padding: 0 15px;
-  border-radius: 20px;
-  background: rgba(30, 144, 255, 1);
-  color: #fff;
-  font-size: 13px;
-  cursor: pointer;
+  z-index: -1;
 }

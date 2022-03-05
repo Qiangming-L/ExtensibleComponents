@@ -1,22 +1,24 @@
 import "./index.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import TimeMemo from "./timeMemo";
 
-import { timestamp } from "../../mixins/timestamp";
 import { antiShake } from "../../mixins/antiShake";
 
 type Props = {
+  maxTime: number;
+  moduleName: ModuleName;
   optionHeight?: number;
   amount?: number;
-  onSureClick?: (time: string) => void;
+  defaultTime?: number;
+  selectedTimeFun?: (time: string | number, moduleName: ModuleName) => void;
 };
+type ModuleName = "hours" | "minutes" | "seconds";
 type DataShow = {
   value: string | number;
   key?: string | number;
   className?: string;
 };
-type ModuleName = "hours" | "minutes" | "seconds";
 type ModuleData = {
   value: number;
   animation: boolean;
@@ -24,180 +26,77 @@ type ModuleData = {
 };
 
 const TimePopup: React.FC<Props> = (props) => {
-  const timer: any = useRef(null);
-  const MaximumHours = 23;
-  const MaximumMinutes = 59;
-
-  const { optionHeight = 30, amount = 11, onSureClick } = props;
+  const {
+    maxTime,
+    moduleName,
+    optionHeight = 30,
+    amount = 11,
+    defaultTime = 0,
+    selectedTimeFun,
+  } = props;
 
   const Half = Math.floor(amount / 2);
 
-  const [hours, setHours] = useState<ModuleData>({
-    value: Number(timestamp("hh")),
-    animation: true,
-    style: undefined,
-  });
-  const [minutes, setMinutes] = useState<ModuleData>({
-    value: Number(timestamp("mm")),
-    animation: true,
-    style: undefined,
-  });
-  const [seconds, setSeconds] = useState<ModuleData>({
-    value: Number(timestamp("ss")),
+  const [time, setTime] = useState<ModuleData>({
+    value: defaultTime,
     animation: true,
     style: undefined,
   });
   const [hoursShow, setHoursShow] = useState<Array<DataShow>>();
-  const [minutesShow, setMinutesShow] = useState<Array<DataShow>>();
-  const [secondsShow, setSecondsShow] = useState<Array<DataShow>>();
 
-  useEffect(() => {
-    return () => {
-      clearTimer();
-    };
+  useLayoutEffect(() => {
+    if (amount % 2 === 0) {
+      throw new Error("amount only accepts a singular number as an argument");
+    }
   }, []);
 
-  const clearTimer = () => {
-    timer.current = null;
-    clearTimeout(timer.current);
-  };
+  useEffect(() => {
+    if (time.animation) {
+      updateTime(time.value, maxTime);
+    }
+    if (time.value >= 0 && time.value <= maxTime && selectedTimeFun) {
+      selectedTimeFun(time.value, moduleName);
+    }
+  }, [time.value]);
 
-  useEffect(() => {
-    if (hours.animation) {
-      updateTime(hours.value, MaximumHours, "hours");
-    }
-  }, [hours.value]);
-  useEffect(() => {
-    if (minutes.animation) {
-      updateTime(minutes.value, MaximumMinutes, "minutes");
-    }
-  }, [minutes.value]);
-  useEffect(() => {
-    if (seconds.animation) {
-      updateTime(seconds.value, MaximumMinutes, "seconds");
-    }
-  }, [seconds.value]);
-
-  const updateTime = (_time: number, _max: number, module: ModuleName) => {
-    if (module === "hours") {
-      setHoursShow(initializeTime(_time, _max, module));
-      setHours({
-        ...hours,
-        ...{
-          style: {
-            transform: `translateY(-${(_time + Half + 1) * optionHeight}px)`,
-          },
+  const updateTime = (_time: number, _max: number) => {
+    setHoursShow(initializeTime(_time, _max));
+    setTime({
+      ...time,
+      ...{
+        style: {
+          transform: `translateY(-${(_time + Half + 1) * optionHeight}px)`,
         },
-      });
-      if (0 > _time) {
-        antiShake(() => {
-          setHours({
-            value: _max + 2 + _time,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_max + _time + Half + 2) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      } else if (_time > _max) {
-        antiShake(() => {
-          setHours({
-            value: _time - _max - 1,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_time + Half - _max) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      }
-    } else if (module === "minutes") {
-      setMinutesShow(initializeTime(_time, _max, module));
-      setMinutes({
-        ...minutes,
-        ...{
+      },
+    });
+    if (0 > _time) {
+      antiShake(() => {
+        setTime({
+          value: _max + 1 + _time,
+          animation: false,
           style: {
-            transform: `translateY(-${(_time + Half + 1) * optionHeight}px)`,
+            transform: `translateY(-${
+              (_max + _time + Half + 2) * optionHeight
+            }px)`,
+            transition: "all",
           },
-        },
-      });
-      if (0 > _time) {
-        antiShake(() => {
-          setMinutes({
-            value: _max + 2 + _time,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_max + _time + Half + 2) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      } else if (_time > _max) {
-        antiShake(() => {
-          setMinutes({
-            value: _time - _max - 1,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_time + Half - _max) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      }
-    } else if (module === "seconds") {
-      setSecondsShow(initializeTime(_time, _max, module));
-      setSeconds({
-        ...seconds,
-        ...{
+        });
+      }, 300);
+    } else if (_time > _max) {
+      antiShake(() => {
+        setTime({
+          value: _time - _max - 1,
+          animation: false,
           style: {
-            transform: `translateY(-${(_time + Half + 1) * optionHeight}px)`,
+            transform: `translateY(-${(_time + Half - _max) * optionHeight}px)`,
+            transition: "all",
           },
-        },
-      });
-      if (0 > _time) {
-        antiShake(() => {
-          setSeconds({
-            value: _max + 2 + _time,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_max + _time + Half + 2) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      } else if (_time > _max) {
-        antiShake(() => {
-          setSeconds({
-            value: _time - _max - 1,
-            animation: false,
-            style: {
-              transform: `translateY(-${
-                (_time + Half - _max) * optionHeight
-              }px)`,
-              transition: "all",
-            },
-          });
-        }, 300);
-      }
+        });
+      }, 300);
     }
   };
 
-  const initializeTime = (
-    _time: number,
-    max: number,
-    module: ModuleName
-  ): Array<DataShow> => {
+  const initializeTime = (_time: number, max: number): Array<DataShow> => {
     let initializeArr = [];
     for (let i = 0; i <= max; i++) {
       initializeArr.push({
@@ -210,15 +109,13 @@ const TimePopup: React.FC<Props> = (props) => {
     const _pop = _copy.splice(_copy.length - amount).map((item: DataShow) => {
       return {
         value: item.value,
-        key: `pop-${item.key}`,
-        className: `${module}-pop`,
+        key: `time-pop-option-${item.key}`,
       };
     });
     const _push = _copy.splice(0, amount).map((item: DataShow) => {
       return {
         value: item.value,
-        key: `push-${item.key}`,
-        className: `${module}-push`,
+        key: `time-push-option-${item.key}`,
       };
     });
     return [...[], ..._pop, ...initializeArr, ..._push];
@@ -228,84 +125,30 @@ const TimePopup: React.FC<Props> = (props) => {
     const targt = event.target as HTMLDivElement;
     const _className = targt.className;
     if (_className.includes("time-picker-popup-option")) {
-      if (_className.includes("select-hours")) {
-        if (_className.includes("hours-pop")) {
-          setHours({
-            ...hours,
-            ...{
-              value: Number(targt.innerText) - MaximumHours - 1,
-              animation: true,
-            },
-          });
-        } else if (_className.includes("hours-push")) {
-          setHours({
-            ...hours,
-            ...{
-              value: MaximumHours + 1 + Number(targt.innerText),
-              animation: true,
-            },
-          });
-        } else {
-          setHours({
-            ...hours,
-            ...{
-              value: Number(targt.innerText),
-              animation: true,
-            },
-          });
-        }
-      } else if (_className.includes("select-minutes")) {
-        if (_className.includes("minutes-pop")) {
-          setMinutes({
-            ...minutes,
-            ...{
-              value: Number(targt.innerText) - MaximumMinutes - 1,
-              animation: true,
-            },
-          });
-        } else if (_className.includes("hours-push")) {
-          setMinutes({
-            ...minutes,
-            ...{
-              value: MaximumMinutes + 1 + Number(targt.innerText),
-              animation: true,
-            },
-          });
-        } else {
-          setMinutes({
-            ...minutes,
-            ...{
-              value: Number(targt.innerText),
-              animation: true,
-            },
-          });
-        }
-      } else if (_className.includes("select-seconds")) {
-        if (_className.includes("seconds-pop")) {
-          setSeconds({
-            ...seconds,
-            ...{
-              value: Number(targt.innerText) - MaximumMinutes - 1,
-              animation: true,
-            },
-          });
-        } else if (_className.includes("hours-push")) {
-          setSeconds({
-            ...seconds,
-            ...{
-              value: MaximumMinutes + 1 + Number(targt.innerText),
-              animation: true,
-            },
-          });
-        } else {
-          setSeconds({
-            ...seconds,
-            ...{
-              value: Number(targt.innerText),
-              animation: true,
-            },
-          });
-        }
+      if (_className.includes("time-pop-option")) {
+        setTime({
+          ...time,
+          ...{
+            value: Number(targt.innerText) - maxTime - 1,
+            animation: true,
+          },
+        });
+      } else if (_className.includes("time-push-option")) {
+        setTime({
+          ...time,
+          ...{
+            value: maxTime + 1 + Number(targt.innerText),
+            animation: true,
+          },
+        });
+      } else {
+        setTime({
+          ...time,
+          ...{
+            value: Number(targt.innerText),
+            animation: true,
+          },
+        });
       }
     }
   };
@@ -314,91 +157,29 @@ const TimePopup: React.FC<Props> = (props) => {
     const targt = event.target as HTMLDivElement;
     const _className = targt.className;
     if (_className.includes("time-picker-popup-option")) {
-      if (_className.includes("select-hours")) {
-        setHours({
-          ...hours,
-          ...{
-            value: hours.value + (event.deltaY > 0 ? 1 : -1),
-            animation: true,
-          },
-        });
-      } else if (_className.includes("select-minutes")) {
-        setMinutes({
-          ...minutes,
-          ...{
-            value: minutes.value + (event.deltaY > 0 ? 1 : -1),
-            animation: true,
-          },
-        });
-      } else if (_className.includes("select-seconds")) {
-        setSeconds({
-          ...seconds,
-          ...{
-            value: seconds.value + (event.deltaY > 0 ? 1 : -1),
-            animation: true,
-          },
-        });
-      }
-    }
-  };
-
-  const textShow = (value: string | number): string => {
-    if (value.toString().length === 1) {
-      return `0${value}`;
-    }
-    return value.toString();
-  };
-
-  const timeSure = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    if (onSureClick) {
-      onSureClick(
-        `${textShow(hours.value)}:${textShow(minutes.value)}:${textShow(
-          seconds.value
-        )}`
-      );
+      setTime({
+        ...time,
+        ...{
+          value: time.value + (event.deltaY > 0 ? 1 : -1),
+          animation: true,
+        },
+      });
     }
   };
 
   return (
     <div className="time-picker-popup-main" onClick={onClickFun}>
-      <div className="data-picker-choose-time" />
       {hoursShow ? (
         <TimeMemo
           showArr={hoursShow}
-          currentTime={hours.value}
-          selectClassName="select-hours"
-          style={hours.style}
+          currentTime={time.value}
+          style={time.style}
           amount={amount}
           optionHeight={optionHeight}
           onScroll={onScrollFun}
         />
       ) : null}
-      {minutesShow ? (
-        <TimeMemo
-          showArr={minutesShow}
-          currentTime={minutes.value}
-          selectClassName="select-minutes"
-          style={minutes.style}
-          amount={amount}
-          optionHeight={optionHeight}
-          onScroll={onScrollFun}
-        />
-      ) : null}
-      {secondsShow ? (
-        <TimeMemo
-          showArr={secondsShow}
-          currentTime={seconds.value}
-          selectClassName="select-seconds"
-          style={seconds.style}
-          amount={amount}
-          optionHeight={optionHeight}
-          onScroll={onScrollFun}
-        />
-      ) : null}
-      <span className="time-picker-popup-main-sure" onClick={timeSure}>
-        确定
-      </span>
+      <div className="time-picker-choose-time" />
     </div>
   );
 };

@@ -1,7 +1,15 @@
 import "./index.css";
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 
 import TimePopup from "./time";
+
+import { timestamp } from "../mixins/timestamp";
 
 type Props = {
   className?: string;
@@ -10,7 +18,9 @@ type Props = {
   placeholder?: string;
   optionHeight?: number;
   amount?: number;
+  defaultTime?: string;
 };
+type ModuleName = "hours" | "minutes" | "seconds";
 
 const TimePicker: React.FC<Props> = (props) => {
   const timer: any = useRef(null);
@@ -21,11 +31,37 @@ const TimePicker: React.FC<Props> = (props) => {
     placeholder = "请选择时间",
     optionHeight = 30,
     amount = 11,
+    defaultTime,
   } = props;
+  let defaultHoursTime: number = 0,
+    defaultMinutesTime: number = 0,
+    defaultSecondsTime: number = 0;
+
+  if (defaultTime) {
+    if (defaultTime.includes(":")) {
+      const _defaultTime = defaultTime.split(":");
+      if (_defaultTime.length > 2) {
+        defaultHoursTime = Number(_defaultTime[0]);
+        defaultMinutesTime = Number(_defaultTime[1]);
+        defaultSecondsTime = Number(_defaultTime[2]);
+      }
+    } else {
+      throw new Error("Please pass in time data like xx:xx:xx");
+    }
+  }
 
   const [timeValue, setTimeValue] = useState<string>("");
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [animation, setAnimation] = useState<string>("");
+  const [hours, setHours] = useState<string | number>("");
+  const [minutes, setMinutes] = useState<string | number>("");
+  const [seconds, setSeconds] = useState<string | number>("");
+
+  useLayoutEffect(() => {
+    if (amount % 2 === 0) {
+      throw new Error("amount only accepts a singular number as an argument");
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -63,12 +99,33 @@ const TimePicker: React.FC<Props> = (props) => {
       clearTimerFun();
     }, 100);
   };
-  const onSureClick = (data: string) => {
-    setTimeValue(data);
-    closePopup();
-  };
   const clearInput = () => {
     setTimeValue("");
+  };
+  const selectedTimeFun = (time: number | string, moduleName: ModuleName) => {
+    if (!time) return;
+    if (moduleName === "hours") {
+      setHours(time);
+    } else if (moduleName === "minutes") {
+      setMinutes(time);
+    } else {
+      setSeconds(time);
+    }
+  };
+  const textShow = (value: string | number): string => {
+    if (value.toString().length === 1) {
+      return `0${value}`;
+    }
+    return value.toString();
+  };
+  const timeSure = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    if (hours && minutes && seconds) {
+      setTimeValue(
+        `${textShow(hours)}:${textShow(minutes)}:${textShow(seconds)}`
+      );
+      closePopup();
+    }
   };
 
   return (
@@ -96,10 +153,32 @@ const TimePicker: React.FC<Props> = (props) => {
       {showPopup ? (
         <div className={`time-picker-popup ${animation} ${classNamePopup}`}>
           <TimePopup
-            onSureClick={onSureClick}
+            selectedTimeFun={selectedTimeFun}
             optionHeight={optionHeight}
             amount={amount}
+            maxTime={23}
+            defaultTime={defaultHoursTime}
+            moduleName="hours"
           />
+          <TimePopup
+            selectedTimeFun={selectedTimeFun}
+            optionHeight={optionHeight}
+            amount={amount}
+            maxTime={59}
+            defaultTime={defaultMinutesTime}
+            moduleName="minutes"
+          />
+          <TimePopup
+            selectedTimeFun={selectedTimeFun}
+            optionHeight={optionHeight}
+            amount={amount}
+            maxTime={59}
+            defaultTime={defaultSecondsTime}
+            moduleName="seconds"
+          />
+          <span className="time-picker-popup-main-sure" onClick={timeSure}>
+            确定
+          </span>
         </div>
       ) : null}
     </div>

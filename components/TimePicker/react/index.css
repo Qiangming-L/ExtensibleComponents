@@ -21,9 +21,13 @@
   color: rgba(0, 0, 0, 0.8);
 }
 .time-picker-popup {
+  --sureHeight: 25px;
   position: absolute;
   top: calc(100% + 20px);
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-items: center;
   border: 1px solid #aaa;
   border-radius: 5px;
   user-select: none;
@@ -33,6 +37,7 @@
   transform-origin: center center;
   overflow: hidden;
   background-color: #fff;
+  z-index: 100;
 }
 .animation {
   transform: scale(1);
@@ -61,4 +66,18 @@
 }
 .clear-button-show {
   display: block;
+}
+.time-picker-popup-main-sure {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  height: var(--sureHeight);
+  line-height: var(--sureHeight);
+  text-align: center;
+  padding: 0 15px;
+  border-radius: 20px;
+  background: rgba(30, 144, 255, 1);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
 }

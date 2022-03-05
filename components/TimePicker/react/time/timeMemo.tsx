@@ -5,7 +5,6 @@ type Props = {
   currentTime: number | string;
   amount?: number;
   optionHeight?: number;
-  selectClassName?: string;
   ref?: any;
   style?: React.CSSProperties;
   onScroll?: (event: React.WheelEvent<HTMLDivElement>) => void;
@@ -13,7 +12,6 @@ type Props = {
 type DataShow = {
   value: string | number;
   key?: string | number;
-  className?: string;
 };
 
 const TimeMemo: React.FC<Props> = (props) => {
@@ -22,7 +20,6 @@ const TimeMemo: React.FC<Props> = (props) => {
   const {
     showArr,
     currentTime,
-    selectClassName = "",
     onScroll,
     style,
     amount = 7,
@@ -55,23 +52,21 @@ const TimeMemo: React.FC<Props> = (props) => {
   return (
     <div className={`time-picker-popup-select`}>
       <div
-        className={`time-picker-scroll-hidden ${
-          selectClassName ? `${selectClassName}-hidden` : ""
-        }`}
+        className={`time-picker-scroll-hidden `}
         onWheel={onWheelFun}
         onScroll={onScrollFun}
         ref={scroll}
         style={{ height: amount * optionHeight }}
       >
         <div className="time-picker-scroll" style={style}>
-          {showArr?.map((item, index) => {
+          {showArr?.map((item) => {
             return (
               <span
                 data-data={item.value}
-                key={`${selectClassName}-${item.key}`}
-                className={`time-picker-popup-option ${selectClassName} ${
-                  item.className
-                } ${Number(item) === Number(currentTime) ? "choose-time" : ""}`}
+                key={`option-${item.key}`}
+                className={`time-picker-popup-option  ${
+                  Number(item) === Number(currentTime) ? "choose-time" : ""
+                }`}
               >
                 {textShow(item.value)}
               </span>

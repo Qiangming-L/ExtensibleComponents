@@ -1,0 +1,26 @@
+.button-animation-module {
+  --button-width: 100px;
+  --button-height: 50px;
+  position: relative;
+  width: var(--button-width);
+  height: var(--button-height);
+  overflow: hidden;
+}
+.button-animation-module-mask {
+  width: calc(var(--button-width) * 3);
+  height: calc(var(--button-height) * 3);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: transform 0.4s;
+  transform-origin: center center;
+}
+.button-animation-module-mask,
+.button-unanimation {
+  transform: translate(-50%, -50%) scale(0);
+}
+.button-animation {
+  transform: translate(-50%, -50%) scale(1);
+}
