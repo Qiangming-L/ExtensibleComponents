@@ -39,10 +39,10 @@
   background-color: #fff;
   z-index: 100;
 }
-.animation {
+.time-picker-animation {
   transform: scale(1);
 }
-.unanimation {
+.time-picker-unanimation {
   transform: scale(0);
 }
 .time-picker-input-clear {

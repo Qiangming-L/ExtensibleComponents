@@ -79,7 +79,7 @@ const TimePicker: React.FC<Props> = (props) => {
       window.addEventListener("click", lstenerClick);
       setShowPopup(true);
       timer.current = setTimeout(() => {
-        setAnimation("animation");
+        setAnimation("time-picker-animation");
         clearTimerFun();
       }, 50);
     }
@@ -92,7 +92,7 @@ const TimePicker: React.FC<Props> = (props) => {
     }
   }, []);
   const closePopup = (): void => {
-    setAnimation("unanimation");
+    setAnimation("time-picker-unanimation");
     window.removeEventListener("click", lstenerClick);
     timer.current = setTimeout(() => {
       setShowPopup(false);

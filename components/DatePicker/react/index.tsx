@@ -112,7 +112,7 @@ const DatePicker: React.FC<Props> = (props) => {
   }, []);
 
   const closePopup = (): void => {
-    setAnimation("unanimation");
+    setAnimation("date-picker-unanimation");
     window.removeEventListener("click", lstenerClick);
     timer.current = setTimeout(() => {
       setShowPopupPlate(popupPlate);
@@ -127,7 +127,7 @@ const DatePicker: React.FC<Props> = (props) => {
       window.addEventListener("click", lstenerClick);
       setShowPopup(true);
       timer.current = setTimeout(() => {
-        setAnimation("animation");
+        setAnimation("date-picker-animation");
         clearTimerFun();
       }, 50);
     }

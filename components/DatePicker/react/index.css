@@ -35,10 +35,10 @@
   border-radius: 5px;
   overflow: hidden;
 }
-.animation {
+.date-picker-animation {
   transform: scale(1);
 }
-.unanimation {
+.date-picker-unanimation {
   transform: scale(0);
 }
 .date-picker-input-clear {
