@@ -1,3 +1,8 @@
+/**
+ * @todo Delete duplicate data from array,No deep traversal
+ * @param {Array} dataArray
+ * @returns {Array}
+ */
 export const removeDuplicate: Function = (
   dataArray: Array<any> = []
 ): Array<any> => {
@@ -39,6 +44,11 @@ export const removeDuplicate: Function = (
   return dataArray;
 };
 
+/**
+ * @todo Flattening an array
+ * @param {Array} dataArray
+ * @returns {Array}
+ */
 export const flatteningArray: Function = (
   dataArray: Array<any>
 ): Array<any> => {
@@ -59,8 +69,13 @@ export const flatteningArray: Function = (
   }
   return provisionalityArray;
 };
-
-// Reference equalObject
+/**
+ * @todo Check whether two arrays are the same
+ * @param {Array} arrayOne
+ * @param {Array} arrayTwo
+ * @param {Boolean} [deepness=false] whether to enable depth traversal
+ * @returns {Boolean}
+ */
 export const equalArray: Function = (
   arrayOne: Array<any> = [],
   arrayTwo: Array<any> = [],
@@ -117,7 +132,13 @@ export const equalArray: Function = (
   return isEqual;
 };
 
-// // Reference equalArray
+/**
+ * @todo Check whether two objects are equal
+ * @param {Object} ObjOne
+ * @param {Object} objTwo
+ * @param {Boolean} [deepness=false] whether to enable depth traversal
+ * @returns {Boolean}
+ */
 export const equalObject: Function = (
   ObjOne: any,
   objTwo: any,

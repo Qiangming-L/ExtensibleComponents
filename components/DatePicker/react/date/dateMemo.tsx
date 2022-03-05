@@ -1,7 +1,21 @@
-import "./index.css";
+/**
+ * @todo show the date
+ * @param {Array} dataArr displays an array of dates
+ * @param {Array} [daysText = ["日", "一", "二", "三", "四", "五", "六"]] displays the day of the week text
+ * @param {Object} [dateText = {year:"YYYY",[month=MM]}] year and month display text
+ * @param {HTMLElement} [children]
+ * @param {String} [moduleName="date"] The name of the module displayed
+ * @param {Boolean} [disableHeaderButton=true] whether to disable click events for year and year text
+ *
+ */
+
 import React from "react";
 
 import { Data } from "../public";
+import { DaysText } from "./text";
+/**
+ * @requires module:mixins/timestamp
+ */
 import { timestamp } from "../../../../mixins/timestamp";
 
 type Props = {
@@ -19,7 +33,7 @@ type Props = {
 const DateMemo: React.FC<Props> = (props) => {
   const {
     dataArr,
-    daysText = ["日", "一", "二", "三", "四", "五", "六"],
+    daysText = DaysText,
     children,
     dateText = {
       year: timestamp("YYYY年"),

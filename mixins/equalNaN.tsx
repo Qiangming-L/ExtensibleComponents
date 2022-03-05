@@ -1,10 +1,10 @@
 /**
- * Checks whether two numbers are NaN, and returns true if so
- * @param dataOne number => NaN
- * @param dataTwo number => NaN
- * @returns boobe
+ * @todo Checks whether two numbers are NaN, and returns true if so
+ * @param {Number} dataOne
+ * @param {Number} dataTwo
+ * @returns {Boolean}
  */
-export const equalNaN: Function = (dataOne?: any, dataTwo?: any): boolean => {
+export const equalNaN: Function = (dataOne: any, dataTwo: any): boolean => {
   let isEqual: boolean = false;
   if (
     typeof dataOne === "number" &&

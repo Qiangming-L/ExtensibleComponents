@@ -1,8 +1,26 @@
+/**
+ * @todo time selector logic component
+ * @param {Number} maxTime maximum display time
+ * @param {String} moduleName The name of the module displayed by the current component
+ * @param {number} [optionHeight=30] the height of each option
+ * @param {number} [amount=11] How many are displayed,Singular only
+ * @param {string} [defaultTime] Default selected time
+ * @function selectedTimeFun select the function of time
+ */
+/**
+ * @function selectedTimeFun
+ * @param {String|Number} time select time
+ * @param {String} moduleName The name of the module displayed by the current component
+ */
+
 import "./index.css";
 import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import TimeMemo from "./timeMemo";
 
+/**
+ * @requires module:mixins/antiShake
+ */
 import { antiShake } from "../../mixins/antiShake";
 
 type Props = {

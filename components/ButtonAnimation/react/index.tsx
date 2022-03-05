@@ -1,3 +1,7 @@
+/**
+ * @todo button click animation
+ * @param {HTMLElement} [children]
+ */
 import "./index.css";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -24,6 +28,9 @@ const ButtonAnimation: React.FC<Props> = (props) => {
   useEffect(() => {
     if (showMask) {
       setAnimation("button-animation");
+      // clear animation
+      // To change the setTimeout execution time,
+      // You need to change the transition execution time in the CSS (.button-animation-module-mask)
       timer.current = setTimeout(() => {
         setShowMask(false);
         setMaskStyle({});

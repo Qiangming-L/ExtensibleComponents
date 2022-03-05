@@ -1,22 +1,36 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+/**
+ * @todo Enlarge part of the image to display
+ * @param {string} url
+ * @param {HTMLElement} [children]
+ * @param {String} [className]
+ * @param {Object} [normalStyle={width:600}] Normal display image width and height
+ *                                           Equal scale scaling,You must fill in either width or height
+ * @param {CSSStyleRule} [maskLayerStyle={width:200}] The image shows the mask layer of the area
+ * @param {Number} [multiple=2] The picture in the magnifying glass is several times larger than the original one
+ * @function mouseEvent Mouse trigger event within the picture
+ */
+/**
+ * @function mouseEvent
+ * @type {String} [type]
+ * @event event
+ */
 
 import "./index.css";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 type Props = {
   url: string;
   children?: React.ReactNode;
   className?: string;
-  // display image CSS
   normalStyle?: {
-    width?: number; // default => 600
+    width?: number;
     height?: number;
   };
-  // default => {width: 200, height: 200} (Mask layer CSS)
   maskLayerStyle?: {
-    width?: number; // default => 200
+    width?: number;
     height?: number;
   };
-  multiple?: number; // default => 2 (The picture in the magnifying glass is several times larger than the original one)
+  multiple?: number;
   mouseEvent?: (type?: string, event?: React.MouseEvent<HTMLElement>) => void;
 };
 

@@ -16,9 +16,6 @@
   background-color: rgba(255, 255, 255, 0.3);
   transition: transform 0.4s;
   transform-origin: center center;
-}
-.button-animation-module-mask,
-.button-unanimation {
   transform: translate(-50%, -50%) scale(0);
 }
 .button-animation {

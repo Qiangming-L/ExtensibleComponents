@@ -1,16 +1,43 @@
+/**
+ * @function onClick Selected date
+ * @param {Array} [monthText] displays the day of the month text
+ * @requires module:./text.js
+ * @param {Number} [month=MM] month displayed
+ * @example month=02
+ * @param {Number} [year=YYYY] year displayed
+ * @example year=2002
+ * @param {DefaultDate} [defaultDate] default selected date
+ * @param {DefaultDate} [disableDate] disable date
+ * @param {Boolean} [segmentSelection=fasle] whether to turn on paragraph selection
+ * @param {String} [moduleName=date] open the plate => year/month/date
+ * @param {Array} [daysText] displays the day of the week text
+ * @requires module:./text.js
+ * @param {Boolean} [disableHeaderButton=true] whether to disable click events for year and year text
+ *
+ */
+/**
+ * @function onClick
+ * @param {DefaultDate} date Selected date
+ * @event event
+ *
+ */
+
+import "./index.css";
 import React, { useState, useEffect } from "react";
 
 import DateMemo from "./dateMemo";
-
+/**
+ * @requires module:mixins/timestamp
+ */
 import { timestamp } from "../../../../mixins/timestamp";
 import { selecteDateFun, disableDateFun } from "../public";
 
-import { MonthText } from "./text.js";
+import { MonthText, DaysText } from "./text.js";
 
 import { DefaultDate, Segment, Data, PopupPlate } from "../public";
 
 type Props = {
-  onClick?: (date: DefaultDate, event: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (date: DefaultDate, event?: React.MouseEvent<HTMLElement>) => void;
   monthText?: Array<Text>;
   month?: number;
   year?: number;
@@ -36,7 +63,7 @@ const DatePopuop: React.FC<Props> = (props) => {
     disableDate,
     moduleName = "date",
     monthText = MonthText,
-    daysText,
+    daysText = DaysText,
     onClick,
   } = props;
 

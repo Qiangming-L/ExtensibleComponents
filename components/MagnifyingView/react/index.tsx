@@ -1,6 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+/**
+ * @param {boolean} [isImmediately=false] Whether to enable animation on first load
+ * @param {string} [className]
+ * @param {string} [childClassName]
+ * @param {HTMLElement} [children]
+ * @param {CSSStyleRule} [style]
+ * @param {number} [setTime=500] Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events'
+ * @function parentOnClick
+ * @param {CSSStyleRule} [magnifyingEndStyle={width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", }] Animation final style
+ */
 
 import "./index.css";
+import React, { useState, useEffect, useRef } from "react";
 
 type Style = {
   width?: number | string;
@@ -11,14 +21,14 @@ type Style = {
 };
 
 interface Props {
-  isImmediately?: boolean; // default => false (Whether to enable animation on first load)
+  isImmediately?: boolean;
   className?: string;
   childClassName?: string;
   children?: React.ReactNode;
   style?: Style;
-  setTime?: number; // default => 500 (Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events')
+  setTime?: number;
   parentOnClick?: () => void;
-  magnifyingEndStyle?: Style; // default => {width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", } (Animation final style)
+  magnifyingEndStyle?: Style;
 }
 
 const MagnifyingView: React.FC<Props> = (props) => {

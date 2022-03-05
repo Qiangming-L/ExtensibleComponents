@@ -1,3 +1,17 @@
+/**
+ * @todo Time select display components
+ * @param {Array} showArr show required data
+ * @param {Number|String} currentTime current selected time
+ * @param {number} [amount=11] How many are displayed,Singular only
+ * @param {number} [optionHeight=30] the height of each option
+ * @param {CSSStyleRule} [style]
+ * @function onScroll mouse scroll event
+ */
+/**
+ * @function onScroll
+ * @event event
+ */
+
 import React, { useRef, useEffect } from "react";
 
 type Props = {
@@ -5,7 +19,6 @@ type Props = {
   currentTime: number | string;
   amount?: number;
   optionHeight?: number;
-  ref?: any;
   style?: React.CSSProperties;
   onScroll?: (event: React.WheelEvent<HTMLDivElement>) => void;
 };
@@ -22,7 +35,7 @@ const TimeMemo: React.FC<Props> = (props) => {
     currentTime,
     onScroll,
     style,
-    amount = 7,
+    amount = 11,
     optionHeight = 30,
   } = props;
 

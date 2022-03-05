@@ -1,3 +1,6 @@
+/**
+ * @requires module:mixins/timestamp
+ */
 import { timestamp } from "../../../../mixins/timestamp";
 
 export type DefaultDate = Date | string | number | Segment | undefined;
@@ -26,6 +29,13 @@ const getTimeFun = (
   return _data;
 };
 
+/**
+ * @todo Whether the current date is selected
+ * @param {string | Date} data date
+ * @param {DefaultDate} selectedDate Date already selected
+ * @returns {Boolean}
+ */
+
 export const selecteDateFun = (
   data: string | Date,
   selectedDate: DefaultDate
@@ -51,7 +61,14 @@ export const selecteDateFun = (
   }
   return isSelecteDate;
 };
-
+/**
+ * @todo whether the current date is disabled
+ * @param {string | Date} data
+ * @param disableDateParameter Date that has been disabled
+ * @param {String} moduleName The current module name is displayed (year|month|date)
+ * @param {Boolean} [isChoice=false] 是否为鼠标move事件
+ * @returns {Boolean}
+ */
 export const disableDateFun = (
   data: string | Date,
   disableDateParameter: DefaultDate,

@@ -48,3 +48,4 @@ export const MonthText = [
     text: "十二月",
   },
 ];
+export const DaysText = ["日", "一", "二", "三", "四", "五", "六"];

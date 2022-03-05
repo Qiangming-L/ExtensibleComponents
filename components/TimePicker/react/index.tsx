@@ -1,3 +1,15 @@
+/**
+ * @function TimePicker
+ * @param {string} [className]
+ * @param {string} [classNamePopup]
+ * @param {boolean} [showClearButton=true] whether the clear button is displayed
+ * @param {string} [placeholder=请选择时间] input
+ * @param {number} [optionHeight=30] the height of each option
+ * @param {number} [amount=11] How many are displayed,Singular only
+ * @param {string} [defaultTime] Default selected time
+ * @example defaultTime="12:00:00"
+ */
+
 import "./index.css";
 import React, {
   useState,
@@ -8,8 +20,6 @@ import React, {
 } from "react";
 
 import TimePopup from "./time";
-
-import { timestamp } from "../mixins/timestamp";
 
 type Props = {
   className?: string;

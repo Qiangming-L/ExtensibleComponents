@@ -1,9 +1,23 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+/**
+ * @todo Equal height image display effect
+ * @param {Array} masonryLayoutsArray Show the picture
+ * @param {CSSStyleRule} [masonryLayoutsStyle]
+ * @param {Number} [minDifference=-50] Minimum gap between screen and element
+ * @param {Number} [minWidth=300] The minimum width of the element
+ * @param {String} [className]
+ */
 
 import "./index.css";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
+/**
+ * @requires module:LazyLoad
+ */
 import LazyLoad from "../LazyLoad";
-import { antiShake } from "../compents/antiShake";
+/**
+ * @requires module:minxins/antiShake
+ */
+import { antiShake } from "../minxins/antiShake";
 
 interface PropsStyle {
   height: number; // Image height
@@ -26,8 +40,8 @@ interface MasonryLayoutsArray {
 interface Props {
   masonryLayoutsArray: Array<MasonryLayoutsArray | any>;
   masonryLayoutsStyle?: PropsStyle;
-  minDifference?: number; // Minimum gap between screen and element
-  minWidth?: number; // The minimum width of the element
+  minDifference?: number;
+  minWidth?: number;
   className?: string;
 }
 

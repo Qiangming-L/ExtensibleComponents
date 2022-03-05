@@ -1,7 +1,7 @@
 /**
- * * @param callBack Function => Function executed after the timer is complete
- * * @param time Number
- * * @param condition Boolean => Whether callback needs to be executed
+ * @callback Function callBack Function executed after the timer is complete
+ * @param {Number} [time=1000]
+ * @param {Boolean} [condition=true] Whether callback needs to be executed
  */
 
 let timer: any = null;

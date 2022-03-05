@@ -1,16 +1,35 @@
+/**
+ * @todo add or subtract years and dates
+ * @function onClick click on the event
+ * @param {String} [popupPlate="date"] open the plate => year/month/date
+ * @param {Number} [defaultYear=YYYY] Select the year
+ * @example defaultYear=2022
+ * @param {Number} [defaultMonth=MM] Select the month
+ * @example defaultMonth=02
+ */
+/**
+ * @function onClick
+ * @param {Object} data year and month displayed
+ * @event event
+ *
+ */
+
 import "./index.css";
 import React, { useState, useEffect } from "react";
 
+/**
+ * @requires module:mixins/timestamp
+ */
 import { timestamp } from "../../../../mixins/timestamp";
 
 type Props = {
   onClick?: (
     data: { year: number; month: number },
-    event: React.MouseEvent<HTMLElement>
+    event?: React.MouseEvent<HTMLElement>
   ) => void;
-  popupPlate?: string;
-  defaultYear?: number;
-  defaultMonth?: number;
+  popupPlate?: string; // default => date (open the plate => year/month/date)
+  defaultYear?: number; // default => "YYYY" (this year)
+  defaultMonth?: number; // default => "MM" (this month)
 };
 
 const DatePickerTitle: React.FC<Props> = (props) => {

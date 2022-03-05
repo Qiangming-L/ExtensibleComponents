@@ -1,13 +1,43 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+/**
+ * @todo date selection
+ * @param {String} [className] entire component
+ * @param {String} [classNamePopup] popup window
+ * @param {String} [placeholder=请选择日期] popup window
+ * @param {Date} [selectionDate] default selected date
+ * @param {String} [popupPlate=date] open the plate => year/month/date
+ * @param {DefaultDate} [defaultDate] default selected date
+ * @param {DefaultDate} [disableDate] disable date
+ * @param {boolean} [dateSegmentSelection=false] whether to open on the date section of the unsuccessful
+ * @param {boolean} [monthSegmentSelection=false] whether to open on the month section of the unsuccessful
+ * @param {boolean} [yearSegmentSelection=false] whether to open on the year section of the unsuccessful
+ * @param {boolean} [showClearButton=true] whether the clear button is displayed
+ * @param {boolean} [disableHeaderButton=true] whether to disable click events for year and year text
+ * @param {Array<String>} [daysText] displays the day of the week text
+ * @requires module:./date/text
+ * @param {Array} [monthText] displays the day of the month text
+ * @requires module:./date/text
+ * @function onChange The callback function for the selected event
+ */
+/**
+ * @function onChange
+ * @param {Object} data date
+ *
+ */
 
 import "./index.css";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
+/**
+ * @requires module:mixins/timestamp
+ */
 import { timestamp } from "../../../mixins/timestamp";
 
 import DatePopuop from "./date";
 import DatePickerTitle from "./datePickerTitle";
 
 import { Segment, DefaultDate, PopupPlate } from "./public";
+
+import { DaysText, MonthText } from "./date/text";
 
 type Props = {
   className?: string;
@@ -18,15 +48,17 @@ type Props = {
   defaultDate?: DefaultDate;
   disableDate?: DefaultDate;
   dateSegmentSelection?: boolean;
-  dateMultiSelect?: boolean;
   monthSegmentSelection?: boolean;
-  monthMultiSelect?: boolean;
   yearSegmentSelection?: boolean;
-  yearMultiSelect?: boolean;
-  onChange?: (data: DefaultDate) => void;
   showClearButton?: boolean;
   disableHeaderButton?: boolean;
   daysText?: Array<string>;
+  monthText?: Array<Text>;
+  onChange?: (data: DefaultDate) => void;
+};
+type Text = {
+  value: number;
+  text: string;
 };
 type SegmentSelectionMultiSelect = {
   year: boolean;
@@ -50,8 +82,9 @@ const DatePicker: React.FC<Props> = (props) => {
     yearSegmentSelection = false,
     showClearButton = true,
     disableHeaderButton = true,
-    daysText = ["日", "一", "二", "三", "四", "五", "六"],
+    daysText = DaysText,
     onChange,
+    monthText = MonthText,
   } = props;
   let _segmentSelection: SegmentSelectionMultiSelect = {
     year: yearSegmentSelection,
@@ -232,6 +265,7 @@ const DatePicker: React.FC<Props> = (props) => {
               onClick={onClickDate}
               year={showYear}
               month={showMonth}
+              monthText={monthText}
               moduleName={showPopupPlate}
               segmentSelection={_segmentSelection[showPopupPlate]}
               defaultDate={defaultDate}

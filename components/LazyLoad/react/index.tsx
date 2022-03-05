@@ -1,29 +1,42 @@
+/**
+ * Using IntersectionObserver
+ * @todo lazy loading of images
+ * @param {Boolean} [showImg=false] whether to display the image directly
+ * @param {string} [defaultImg] Lazy loading shows images by default
+ * @requires defaultImg module:"../img/default.gif"
+ * @param {String} [className]
+ * @param {CSSStyleRule} data
+ * @param {HTMLElement} [children]
+ */
+/**
+ * LazyLoadData
+ * @param { Boolean} [showImg=false] whether to display the image directly
+ * @param { Number} [number] index of the current data
+ */
 import React from "react";
 
 type LazyLoadData = {
   url: string;
   imgWidth?: number | string;
   imgHeight?: number | string;
-  showImg?: boolean; // default => false
+  showImg?: boolean;
   number?: number;
 };
 
 type Props = {
-  showImg?: boolean; // Whether to display the image directly
-  defaultImg?: string; // default => require("../img/default.gif")
-  className?: string; // default => masonry-layouts-list
+  showImg?: boolean;
+  defaultImg?: string;
+  className?: string;
   data: LazyLoadData;
   children?: React.ReactNode;
-  onClick?: (data: any, event: React.MouseEvent<HTMLElement>) => void;
 };
 
 const LazyLoad: React.FC<Props> = (props) => {
   const {
     defaultImg = require("../img/default.gif"),
-    className = "masonry-layouts-list",
+    className = "",
     children,
     data,
-    onClick,
   } = props;
   const { url, imgWidth, imgHeight, showImg = false, number, ...style } = data;
 
@@ -47,9 +60,8 @@ const LazyLoad: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={className}
+      className={`masonry-layouts-list ${className}`}
       style={style || undefined}
-      onClick={onClick ? (event) => onClick(data, event) : undefined}
     >
       <img
         src={showImg ? url : ""}

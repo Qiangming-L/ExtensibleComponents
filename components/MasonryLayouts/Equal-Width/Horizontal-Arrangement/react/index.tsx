@@ -1,8 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+/**
+ * @todo Equal-width picture display effect
+ * @param {Array} masonryLayoutsArray Show the picture
+ * @param {CSSStyleRule} [masonryLayoutsStyle]
+ * @param {Number} [minWidth=300] The minimum width of the element
+ * @param {String} [className]
+ *
+ */
 
 import "./index.css";
+import React, { useState, useEffect, useRef } from "react";
 
+/**
+ * @requires module:LazyLoad
+ */
 import LazyLoad from "../../../../LazyLoad/react";
+/**
+ * @requires module:mixins/antiShake
+ */
 import { antiShake } from "../../../../../mixins/antiShake";
 
 interface PropsStyle {
