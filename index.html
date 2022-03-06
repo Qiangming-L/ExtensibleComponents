@@ -4,9 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+    <title>Extensible-Components</title>
   </head>
   <body>
-    <div>hello word</div>
+    <header class="header">
+      <h1>Extensible-Components</h1>
+      <p class="header-introduction">
+        一个React(16.4+)/Vue(3.0+) + Typescript开发的可扩展组件合集
+      </p>
+      <a
+        href="https://github.com/Qiangming-L/Extensible-Components"
+        target="view_window"
+        class="header-github"
+      >
+        GitHub
+      </a>
+    </header>
+    <div class="body">
+      <div class="body-content components">
+        <h3>components</h3>
+        <div class="body-content-list" id="components"></div>
+      </div>
+      <!-- <div class="body-content mixins">
+        <h3>mixins</h3>
+      </div> -->
+    </div>
+    <ul id="directory" class="directory"></ul>
   </body>
+  <script type="text/javascript" src="./data.js" async></script>
+  <script type="text/javascript" src="./index.js" async></script>
 </html>
