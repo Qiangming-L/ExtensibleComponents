@@ -1,0 +1,52 @@
+.time-picker-popup-main {
+  --Optionheight: 30px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  padding-bottom: calc(2 * var(--sureHeight));
+}
+.time-picker-popup-select {
+  width: 100px;
+  overflow: hidden;
+}
+.time-picker-popup-select,
+.time-picker-popup-select * {
+  box-sizing: border-box;
+}
+.time-picker-scroll-hidden {
+  width: calc(100% + 25px);
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.time-picker-scroll {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  transition: all 0.3s;
+}
+.time-picker-popup-option {
+  width: 100%;
+  height: var(--Optionheight);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+}
+.time-picker-choose-time {
+  position: absolute;
+  top: calc(50% - var(--sureHeight));
+  left: 0;
+  width: 100%;
+  height: var(--Optionheight);
+  transform: translateY(-50%);
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  z-index: -1;
+}

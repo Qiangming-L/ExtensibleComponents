@@ -1,15 +1,15 @@
-.date-picker {
+.time-picker {
   width: max-content;
   position: relative;
 }
-.date-picker * {
+.time-picker * {
   box-sizing: border-box;
 }
-.date-picker-data-show {
+.time-picker-data-show {
   max-width: 100%;
   position: relative;
 }
-.date-picker-input {
+.time-picker-input {
   display: inline-block;
   width: 100%;
   height: 30px;
@@ -20,28 +20,32 @@
   border: 1px solid #aaa;
   color: rgba(0, 0, 0, 0.8);
 }
-.date-picker-popup {
+.time-picker-popup {
+  --sureHeight: 25px;
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 20px);
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid #aaa;
+  border-radius: 5px;
   user-select: none;
   transform: scale(0);
   transition: all 0.2s;
   transition-delay: 50ms;
   transform-origin: center center;
-  border: 1px solid #aaa;
-  width: max-content;
-  background-color: #fff;
-  border-radius: 5px;
   overflow: hidden;
+  background-color: #fff;
+  z-index: 100;
 }
-.date-picker-animation {
+.time-picker-animation {
   transform: scale(1);
 }
-.date-picker-unanimation {
+.time-picker-unanimation {
   transform: scale(0);
 }
-.date-picker-input-clear {
+.time-picker-input-clear {
   display: none;
   width: 15px;
   height: 15px;
@@ -57,9 +61,23 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.date-picker-input-clear:hover {
+.time-picker-input-clear:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .clear-button-show {
   display: block;
+}
+.time-picker-popup-main-sure {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  height: var(--sureHeight);
+  line-height: var(--sureHeight);
+  text-align: center;
+  padding: 0 15px;
+  border-radius: 20px;
+  background: rgba(30, 144, 255, 1);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
 }

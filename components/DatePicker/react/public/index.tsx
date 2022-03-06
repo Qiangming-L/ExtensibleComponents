@@ -1,15 +1,16 @@
-export type DefaultDate =
-  | Date
-  | string
-  | number
-  | Array<Date | string | number>
-  | Segment
-  | undefined;
+/**
+ * @requires module:mixins/timestamp
+ */
+import { timestamp } from "../../../../mixins/timestamp";
+
+export type DefaultDate = Date | string | number | Segment | undefined;
 
 export type Segment = {
   start?: Date | string;
   end?: Date | string;
 };
+
+export type PopupPlate = "year" | "month" | "date";
 
 export type Data = {
   text: string | number;
@@ -27,6 +28,13 @@ const getTimeFun = (
   const _data = new Date(`${date} ${_time}`).getTime();
   return _data;
 };
+
+/**
+ * @todo Whether the current date is selected
+ * @param {string | Date} data date
+ * @param {DefaultDate} selectedDate Date already selected
+ * @returns {Boolean}
+ */
 
 export const selecteDateFun = (
   data: string | Date,
@@ -50,23 +58,26 @@ export const selecteDateFun = (
     } else if (start) {
       isSelecteDate = getTimeFun(`${start}`) <= _data;
     }
-  } else if (type === "[object Array]") {
-    const _defaultDate = selectedDate as Array<Date | string>;
-    const _defaultDateFilter = _defaultDate.filter((item) => {
-      return getTimeFun(item) === _data;
-    });
-    isSelecteDate = _defaultDateFilter.length > 0;
   }
   return isSelecteDate;
 };
-
+/**
+ * @todo whether the current date is disabled
+ * @param {string | Date} data
+ * @param disableDateParameter Date that has been disabled
+ * @param {String} moduleName The current module name is displayed (year|month|date)
+ * @param {Boolean} [isChoice=false] 是否为鼠标move事件
+ * @returns {Boolean}
+ */
 export const disableDateFun = (
   data: string | Date,
-  disableDateParameter: DefaultDate
+  disableDateParameter: DefaultDate,
+  moduleName: PopupPlate,
+  isChoice: boolean = false
 ): boolean => {
   let isDisableDate = false;
   const type = Object.prototype.toString.call(disableDateParameter);
-  const _data = getTimeFun(`${data}`);
+  let _data = getTimeFun(`${data}`);
   if (type === "[object String]" || type === "[object Number]") {
     isDisableDate = _data === getTimeFun(`${disableDateParameter}`);
   } else if (type === "[object Object]") {
@@ -74,19 +85,49 @@ export const disableDateFun = (
     const { start, end } = _disableDateParameter;
     if (start && end) {
       if (getTimeFun(`${start}`) > getTimeFun(`${end}`)) return isDisableDate;
+      const _startyear = timestamp(start, "YYYY");
+      const _startmonth = timestamp(start, "MM");
+      const _startDate = timestamp(start, "DD");
+      const _endyear = timestamp(end, "YYYY");
+      const _endmonth = timestamp(end, "MM");
+      const _endDate = timestamp(end, "DD");
       isDisableDate =
         getTimeFun(`${start}`) <= _data && getTimeFun(`${end}`) > _data;
+      if (moduleName === "year") {
+        _data = getTimeFun(`${timestamp(_data, "YYYY")}-12-31`, "23:59:59");
+        isDisableDate =
+          getTimeFun(`${_startyear}-${_startmonth}-${_startDate}`) <= _data &&
+          getTimeFun(`${_endyear}-${_endmonth}-${_endDate}`, "23:59:59") >=
+            _data;
+      } else if (moduleName === "month") {
+        const _dates = new Date(
+          timestamp(_data, "YYYY"),
+          timestamp(_data, "MM"),
+          0
+        ).getDate();
+        _data = getTimeFun(
+          `${timestamp(_data, "YYYY")}-${timestamp(_data, "MM")}-${_dates}`,
+          "23:59:59"
+        );
+        isDisableDate =
+          getTimeFun(`${_startyear}-${_startmonth}-${_startDate}`) <= _data &&
+          getTimeFun(`${_endyear}-${_endmonth}-${_endDate}`, "23:59:59") >=
+            _data;
+      }
     } else if (end) {
       isDisableDate = getTimeFun(`${end}`) > _data;
+      if (isChoice) {
+        const _year = timestamp(end, "YYYY");
+        const _month = timestamp(end, "MM");
+        if (moduleName === "year") {
+          isDisableDate = getTimeFun(`${_year}`) - 1000 > _data;
+        } else if (moduleName === "month") {
+          isDisableDate = getTimeFun(`${_year}-${_month}`) - 1000 > _data;
+        }
+      }
     } else if (start) {
       isDisableDate = getTimeFun(`${start}`) <= _data;
     }
-  } else if (type === "[object Array]") {
-    const _disableDate = disableDateParameter as Array<Date | string>;
-    const _disableDateFilter = _disableDate.filter((item) => {
-      return getTimeFun(item) === _data;
-    });
-    isDisableDate = _disableDateFilter.length > 0;
   }
   return isDisableDate;
 };

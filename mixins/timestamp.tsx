@@ -1,3 +1,13 @@
+/**
+ * @todo Time is converted to a fixed format
+ * @param {Date | number | string} [date] The time or format to convert
+ * @example date="YYYY/MM/DD hh:mm:ss"
+ * @example date="2022/2/2"
+ * @param {String} [style=MM-DD-YYYY hh:mm:ss] The format to convert
+ * @example style="YYYY年MM月DD日 hh时mm分ss秒"
+ * @returns {String} XXXX-XX-XX XX:XX:XX
+ */
+
 export const timestamp: Function = (
   date?: Date | number | string,
   style?: string

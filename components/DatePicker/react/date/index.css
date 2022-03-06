@@ -50,3 +50,33 @@
 .date-picker-popup-content {
   height: 100%;
 }
+.month .date-picker-popup-date,
+.year .date-picker-popup-date {
+  min-width: 80px;
+  height: 30px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.date-picker-popup-header {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  font-size: 16px;
+}
+.date-picker-header-text {
+  cursor: pointer;
+}
+.month-text {
+  margin-left: 10px;
+}
+.disable-year {
+  cursor: default;
+}

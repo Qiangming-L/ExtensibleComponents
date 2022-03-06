@@ -1,8 +1,8 @@
 /**
  *
- * convert percentages to decimals
- * @param data (number | string) => percentage
- * @returns Number
+ * @todo convert percentages to decimals
+ * @param {Number | String} data percentage
+ * @returns {Number}
  *
  */
 export const percentagesNumbers: Function = (

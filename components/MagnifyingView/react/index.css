@@ -8,7 +8,7 @@
   z-index: 10;
   transition: all var(--duration);
 }
-.animation {
+.magnifying-view-animation {
   position: fixed;
   overflow: hidden;
 }
@@ -29,13 +29,13 @@
   min-width: none;
   min-height: none;
 }
-.animation .magnifying-view-content {
+.magnifying-view-animation .magnifying-view-content {
   width: 80%;
   height: 80%;
   max-width: 80%;
   max-height: 80%;
 }
-.unanimation {
+.magnifying-view-unanimation {
   position: fixed;
   overflow: hidden;
 }

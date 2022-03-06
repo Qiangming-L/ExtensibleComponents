@@ -1,6 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+/**
+ * @param {boolean} [isImmediately=false] Whether to enable animation on first load
+ * @param {string} [className]
+ * @param {string} [childClassName]
+ * @param {HTMLElement} [children]
+ * @param {CSSStyleRule} [style]
+ * @param {number} [setTime=500] Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events'
+ * @function parentOnClick
+ * @param {CSSStyleRule} [magnifyingEndStyle={width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", }] Animation final style
+ */
 
 import "./index.css";
+import React, { useState, useEffect, useRef } from "react";
 
 type Style = {
   width?: number | string;
@@ -11,14 +21,14 @@ type Style = {
 };
 
 interface Props {
-  isImmediately?: boolean; // default => false (Whether to enable animation on first load)
+  isImmediately?: boolean;
   className?: string;
   childClassName?: string;
   children?: React.ReactNode;
   style?: Style;
-  setTime?: number; // default => 500 (Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events')
+  setTime?: number;
   parentOnClick?: () => void;
-  magnifyingEndStyle?: Style; // default => {width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", } (Animation final style)
+  magnifyingEndStyle?: Style;
 }
 
 const MagnifyingView: React.FC<Props> = (props) => {
@@ -54,7 +64,7 @@ const MagnifyingView: React.FC<Props> = (props) => {
     if (isImmediately) {
       const { left, top, width, height } = style || {};
       if (left && top && width && height) {
-        setIsAnimation("animation");
+        setIsAnimation("magnifying-view-animation");
         animationFun();
       } else {
         throw new Error(
@@ -69,9 +79,9 @@ const MagnifyingView: React.FC<Props> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (isAnimation === "animation") {
+    if (isAnimation === "magnifying-view-animation") {
       setEndAnimation(magnifyingEndStyle);
-    } else if (isAnimation === "unanimation") {
+    } else if (isAnimation === "magnifying-view-unanimation") {
       setEndAnimation(modificationStyle);
     }
   }, [isAnimation]);
@@ -84,8 +94,12 @@ const MagnifyingView: React.FC<Props> = (props) => {
 
   const animationFun = (event?: React.MouseEvent<HTMLElement>) => {
     const location: any = magnifyingView.current.getBoundingClientRect();
-    if (isAnimation === "unanimation" || immediately || !isAnimation) {
-      setIsAnimation("animation");
+    if (
+      isAnimation === "magnifying-view-unanimation" ||
+      immediately ||
+      !isAnimation
+    ) {
+      setIsAnimation("magnifying-view-animation");
       setImmediately(false);
       if (immediately) {
         setModificationStyle(style);
@@ -95,8 +109,8 @@ const MagnifyingView: React.FC<Props> = (props) => {
           left: location.left,
         });
       }
-    } else if (isAnimation === "animation" && !immediately) {
-      setIsAnimation("unanimation");
+    } else if (isAnimation === "magnifying-view-animation" && !immediately) {
+      setIsAnimation("magnifying-view-unanimation");
       timer.current = setTimeout(() => {
         setIsAnimation("");
         if (parentOnClick) {
