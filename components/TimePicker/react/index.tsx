@@ -1,5 +1,5 @@
 /**
- * @function TimePicker
+ * @todo time selection module
  * @param {String} [className]
  * @param {String} [classNamePopup]
  * @param {Boolean} [showClearButton=true] whether the clear button is displayed
@@ -8,8 +8,12 @@
  * @param {Number} [amount=11] How many are displayed,Singular only
  * @param {String} [defaultTime] Default selected time
  * @example defaultTime="12:00:00"
+ * @function onClick confirm the time selection trigger event
  */
-
+/**
+ * @function onClick
+ * @param {string} time The selected time
+ */
 import "./index.css";
 import React, {
   useState,
@@ -29,7 +33,7 @@ type Props = {
   optionHeight?: number;
   amount?: number;
   defaultTime?: string;
-  onClick?: (value: string) => void;
+  onClick?: (time?: string) => void;
 };
 type ModuleName = "hours" | "minutes" | "seconds";
 
