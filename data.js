@@ -106,10 +106,10 @@ const dataArr = {
         default: "请选择日期",
       },
       {
-        propsName: "[selectionDate]",
-        instructions: "弹出层显示日期",
-        type: "Date",
-        default: "-",
+        propsName: "[startingTime]",
+        instructions: "弹出层最初显示日期",
+        type: "Date | string",
+        default: "今天",
       },
       {
         propsName: "[popupPlate]",
@@ -367,6 +367,12 @@ const dataArr = {
         instructions: "自定义class",
         type: "string",
         default: "-",
+      },
+      {
+        propsName: "[threshold]",
+        instructions: "图片进入屏幕比例加载(0.01 => 1%)",
+        type: "number",
+        default: "0.01",
       },
       {
         propsName: "[children]",
@@ -632,6 +638,12 @@ const dataArr = {
         instructions: "默认时间",
         type: "string",
         default: "00:00:00",
+      },
+      {
+        propsName: "[onClick]",
+        instructions: "确认选择触发事件",
+        type: "(time: string) => {}",
+        default: "-",
       },
     ],
     codeSandboxReact: "https://codesandbox.io/s/awesome-noyce-w5dhem?file=/src",
