@@ -3,7 +3,7 @@
  * @param {String} [className] entire component
  * @param {String} [classNamePopup] popup window
  * @param {String} [placeholder=请选择日期] popup window
- * @param {Date} [selectionDate] default selected date
+ * @param {Date | String} [startingTime] default selected date
  * @param {String} [popupPlate=date] open the plate => year/month/date
  * @param {DefaultDate} [defaultDate] default selected date
  * @param {DefaultDate} [disableDate] disable date
@@ -20,7 +20,7 @@
  */
 /**
  * @function onChange
- * @param {Object} data date
+ * @param {Object | String | Date} data date
  *
  */
 
@@ -43,7 +43,7 @@ type Props = {
   className?: string;
   classNamePopup?: string;
   placeholder?: string;
-  selectionDate?: Date;
+  startingTime?: Date | string;
   popupPlate?: PopupPlate;
   defaultDate?: DefaultDate;
   disableDate?: DefaultDate;
@@ -73,7 +73,7 @@ const DatePicker: React.FC<Props> = (props) => {
     className = "",
     classNamePopup = "",
     placeholder = "请选择日期",
-    selectionDate,
+    startingTime = timestamp("YYYY-MM-DD"),
     popupPlate = "date",
     defaultDate,
     disableDate,
@@ -112,9 +112,9 @@ const DatePicker: React.FC<Props> = (props) => {
   }
   let defaultYear = timestamp("YYYY");
   let defaultMonth = timestamp("MM");
-  if (selectionDate) {
-    defaultYear = timestamp(selectionDate, "YYYY");
-    defaultMonth = timestamp(selectionDate, "MM");
+  if (startingTime) {
+    defaultYear = timestamp(startingTime, "YYYY");
+    defaultMonth = timestamp(startingTime, "MM");
   }
 
   const [showPopup, setShowPopup] = useState<boolean>(false);

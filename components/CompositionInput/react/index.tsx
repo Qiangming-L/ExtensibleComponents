@@ -6,7 +6,7 @@
  * @param {Boolean} [disallowChange = false] whether to disable change events
  * @param {Boolean} [disallowComposition = true] whether to disable compositionstart and compositionend events
  * @param {Boolean} [disallowBlurFocus = true] whether to disable blur and focus events
- * @param {string} [placeholder = ""] input placeholder
+ * @param {String} [placeholder = ""] input placeholder
  *
  */
 /**

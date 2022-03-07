@@ -1,12 +1,12 @@
 /**
  * @function TimePicker
- * @param {string} [className]
- * @param {string} [classNamePopup]
- * @param {boolean} [showClearButton=true] whether the clear button is displayed
- * @param {string} [placeholder=请选择时间] input
- * @param {number} [optionHeight=30] the height of each option
- * @param {number} [amount=11] How many are displayed,Singular only
- * @param {string} [defaultTime] Default selected time
+ * @param {String} [className]
+ * @param {String} [classNamePopup]
+ * @param {Boolean} [showClearButton=true] whether the clear button is displayed
+ * @param {String} [placeholder=请选择时间] input
+ * @param {Number} [optionHeight=30] the height of each option
+ * @param {Number} [amount=11] How many are displayed,Singular only
+ * @param {String} [defaultTime] Default selected time
  * @example defaultTime="12:00:00"
  */
 
@@ -29,6 +29,7 @@ type Props = {
   optionHeight?: number;
   amount?: number;
   defaultTime?: string;
+  onClick?: (value: string) => void;
 };
 type ModuleName = "hours" | "minutes" | "seconds";
 
@@ -42,6 +43,7 @@ const TimePicker: React.FC<Props> = (props) => {
     optionHeight = 30,
     amount = 11,
     defaultTime,
+    onClick,
   } = props;
   let defaultHoursTime: number = 0,
     defaultMinutesTime: number = 0,
@@ -131,9 +133,13 @@ const TimePicker: React.FC<Props> = (props) => {
   const timeSure = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     if (hours && minutes && seconds) {
-      setTimeValue(
-        `${textShow(hours)}:${textShow(minutes)}:${textShow(seconds)}`
-      );
+      const _time = `${textShow(hours)}:${textShow(minutes)}:${textShow(
+        seconds
+      )}`;
+      setTimeValue(_time);
+      if (onClick) {
+        onClick(_time);
+      }
       closePopup();
     }
   };

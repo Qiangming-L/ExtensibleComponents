@@ -2,8 +2,8 @@
  * @todo Time select display components
  * @param {Array} showArr show required data
  * @param {Number|String} currentTime current selected time
- * @param {number} [amount=11] How many are displayed,Singular only
- * @param {number} [optionHeight=30] the height of each option
+ * @param {Number} [amount=11] How many are displayed,Singular only
+ * @param {Number} [optionHeight=30] the height of each option
  * @param {CSSStyleRule} [style]
  * @function onScroll mouse scroll event
  */
