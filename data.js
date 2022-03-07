@@ -547,7 +547,7 @@ const dataArr = {
         codeSandboxReact:
           "https://codesandbox.io/s/green-microservice-r33hpb?file=/src",
         githubReact:
-          "https://github.com/Qiangming-L/Extensible-Components/blob/main/components/MasonryLayouts/Equal-Height/Horizontal-Arrangement/react",
+          "https://github.com/Qiangming-L/Extensible-Components/tree/main/components/MasonryLayouts/Equal-Height/react",
         codeSandboxVue: "",
         githubVue: "",
       },
@@ -585,7 +585,7 @@ const dataArr = {
         codeSandboxReact:
           "https://codesandbox.io/s/exciting-voice-vwwxy1?file=/src/",
         githubReact:
-          "https://github.com/Qiangming-L/Extensible-Components/blob/main/components/MasonryLayouts/Equal-Width/Horizontal-Arrangement/react",
+          "https://github.com/Qiangming-L/Extensible-Components/tree/main/components/MasonryLayouts/Equal-Width/react",
         codeSandboxVue: "",
         githubVue: "",
         special: "",
