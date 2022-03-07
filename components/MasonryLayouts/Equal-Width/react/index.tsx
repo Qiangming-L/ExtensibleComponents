@@ -13,11 +13,11 @@ import React, { useState, useEffect, useRef } from "react";
 /**
  * @requires module:LazyLoad
  */
-import LazyLoad from "../../../../LazyLoad/react";
+import LazyLoad from "../../../LazyLoad/react";
 /**
  * @requires module:mixins/antiShake
  */
-import { antiShake } from "../../../../../mixins/antiShake";
+import { antiShake } from "../../../../mixins/antiShake";
 
 interface PropsStyle {
   width?: number | string; // Image width

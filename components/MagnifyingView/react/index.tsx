@@ -1,10 +1,10 @@
 /**
- * @param {boolean} [isImmediately=false] Whether to enable animation on first load
- * @param {string} [className]
- * @param {string} [childClassName]
- * @param {HTMLElement} [children]
+ * @param {Boolean} [isImmediately=false] Whether to enable animation on first load
+ * @param {String} [className]
+ * @param {String} [childClassName]
+ * @param {HTMLElement} children
  * @param {CSSStyleRule} [style]
- * @param {number} [setTime=500] Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events'
+ * @param {Number} [time=500] Timer events 'modify the event needs to be synchronized to modify the CSS "transition" events'
  * @function parentOnClick
  * @param {CSSStyleRule} [magnifyingEndStyle={width: "100%",height: "100%",top: 0,left: 0,backgroundColor: " rgba(0, 0, 0, 0.5)", }] Animation final style
  */
@@ -24,9 +24,9 @@ interface Props {
   isImmediately?: boolean;
   className?: string;
   childClassName?: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   style?: Style;
-  setTime?: number;
+  time?: number;
   parentOnClick?: () => void;
   magnifyingEndStyle?: Style;
 }
@@ -39,7 +39,7 @@ const MagnifyingView: React.FC<Props> = (props) => {
     childClassName,
     children,
     style,
-    setTime = 500,
+    time = 500,
     isImmediately = false,
     parentOnClick,
     magnifyingEndStyle = {
@@ -111,14 +111,14 @@ const MagnifyingView: React.FC<Props> = (props) => {
       }
     } else if (isAnimation === "magnifying-view-animation" && !immediately) {
       setIsAnimation("magnifying-view-unanimation");
-      timer.current = setTimeout(() => {
+      timer.current = timeout(() => {
         setIsAnimation("");
         if (parentOnClick) {
           parentOnClick();
         }
         clearTimeout(timer.current);
         timer.current = null;
-      }, setTime);
+      }, time);
     }
   };
 

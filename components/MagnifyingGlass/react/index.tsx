@@ -1,6 +1,6 @@
 /**
  * @todo Enlarge part of the image to display
- * @param {string} url
+ * @param {String} url
  * @param {HTMLElement} [children]
  * @param {String} [className]
  * @param {Object} [normalStyle={width:600}] Normal display image width and height
@@ -143,7 +143,7 @@ const MagnifyingGlass: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className={`magnifying-glass ${className}`}>
+    <div className={`magnifying-glass ${className}`} style={normalStyle}>
       <div
         className="magnifying-glass-normal"
         onMouseMove={onMouseEnter}
@@ -152,7 +152,6 @@ const MagnifyingGlass: React.FC<Props> = (props) => {
         onMouseOut={onMouseEnter}
         onMouseLeave={onMouseEnter}
         ref={magnifyingGlass}
-        style={normalStyle}
       >
         <img src={url} alt="" />
       </div>

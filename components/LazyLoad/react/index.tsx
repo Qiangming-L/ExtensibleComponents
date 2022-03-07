@@ -2,7 +2,7 @@
  * Using IntersectionObserver
  * @todo lazy loading of images
  * @param {Boolean} [showImg=false] whether to display the image directly
- * @param {string} [defaultImg] Lazy loading shows images by default
+ * @param {String} [defaultImg] Lazy loading shows images by default
  * @requires defaultImg module:"../img/default.gif"
  * @param {String} [className]
  * @param {CSSStyleRule} data
@@ -24,16 +24,17 @@ type LazyLoadData = {
 };
 
 type Props = {
-  showImg?: boolean;
   defaultImg?: string;
   className?: string;
   data: LazyLoadData;
   children?: React.ReactNode;
+  threshold?: number;
 };
 
 const LazyLoad: React.FC<Props> = (props) => {
   const {
     defaultImg = require("../img/default.gif"),
+    threshold = 0.01,
     className = "",
     children,
     data,
@@ -50,7 +51,7 @@ const LazyLoad: React.FC<Props> = (props) => {
       });
     },
     {
-      threshold: [0.01],
+      threshold: [threshold],
     }
   );
   const imgLazyLoad = (event: any): void => {

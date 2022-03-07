@@ -2,9 +2,9 @@
  * @todo time selector logic component
  * @param {Number} maxTime maximum display time
  * @param {String} moduleName The name of the module displayed by the current component
- * @param {number} [optionHeight=30] the height of each option
- * @param {number} [amount=11] How many are displayed,Singular only
- * @param {string} [defaultTime] Default selected time
+ * @param {Number} [optionHeight=30] the height of each option
+ * @param {Number} [amount=11] How many are displayed,Singular only
+ * @param {Number} [defaultTime] Default selected time
  * @function selectedTimeFun select the function of time
  */
 /**
