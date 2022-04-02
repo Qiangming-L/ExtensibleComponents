@@ -1,7 +1,7 @@
 <template>
   <div class="upload-pictures">
-    <label for="file">
-      <input type="file" accept="image/*" @change="initializePic" id="file" />
+    <label for="uploadFile">
+      <input ref="fileInput" type="file" accept="image/*" @change="initializePic" id="uploadFile" />
     </label>
     <div
       v-if="showPopup"
@@ -116,7 +116,7 @@ export default defineComponent({
         const img = new Image();
         img.src = src;
         img.onload = () => {
-          document.getElementById("file")?.blur();
+          (this.$refs.fileInput as HTMLInputElement).blur();
           const { children } = this.$refs.picturesShow as HTMLElement;
           let childrenHeight = 40;
           for (let i = 0; i < children.length; i += 1) {
@@ -128,6 +128,9 @@ export default defineComponent({
           const imgWidth = img.width;
           const imgHeight = img.height;
           let temporaryWidth = this.exhibitionWidth;
+          if (imgWidth < this.canvasWidth) {
+            temporaryWidth = this.canvasWidth;
+          }
           let temporaryHeight = Math.ceil((temporaryWidth / imgWidth) * imgHeight);
           if (temporaryHeight < this.canvasHeight) {
             temporaryHeight = this.canvasHeight;
@@ -285,6 +288,7 @@ export default defineComponent({
       }
     },
     clearData() {
+      (this.$refs.fileInput as HTMLInputElement).value = "";
       this.showPopup = false;
       this.imgUrl = "";
       this.imgElement = null;
@@ -326,8 +330,8 @@ export default defineComponent({
 }
 .upload-pictures-show img {
   vertical-align: bottom;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .upload-pictures-title {
   padding: 20px 0;
@@ -358,10 +362,6 @@ export default defineComponent({
   height: 100%;
 }
 .upload-pictures-sure {
-  /* position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%); */
   margin: 20px auto;
 }
 .upload-pictures-sure button {
