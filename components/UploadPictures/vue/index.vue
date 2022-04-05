@@ -124,10 +124,13 @@ export default defineComponent({
               childrenHeight += children[i].clientHeight;
             }
           }
-          const { clientHeight } = document.documentElement;
+          const { clientWidth, clientHeight } = document.documentElement;
           const imgWidth = img.width;
           const imgHeight = img.height;
           let temporaryWidth = this.exhibitionWidth;
+          if (this.exhibitionWidth > clientWidth) {
+            temporaryWidth = clientWidth * 0.9 - 60;
+          }
           if (imgWidth < this.canvasWidth) {
             temporaryWidth = this.canvasWidth;
           }
