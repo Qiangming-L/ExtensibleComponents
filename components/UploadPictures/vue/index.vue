@@ -77,6 +77,10 @@ export default defineComponent({
       type: String,
       default: "确定"
     },
+    imgType: {
+      type: String,
+      default: "jpge"
+    },
     confirmUpload: {
       type: Function
     }
@@ -182,7 +186,7 @@ export default defineComponent({
       );
       this.clearData();
       if (this.confirmUpload) {
-        const imgBase = canvas.toDataURL("image/jpeg") as string;
+        const imgBase = canvas.toDataURL(`image/${this.imgType}`) as string;
         this.confirmUpload(imgBase);
       }
     },
