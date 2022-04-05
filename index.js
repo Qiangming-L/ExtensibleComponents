@@ -1,6 +1,6 @@
-const _components = document.querySelector("#components");
-const _directory = document.querySelector("#directory");
-let _name = "ButtonAnimation";
+const _components = document.querySelector('#components');
+const _directory = document.querySelector('#directory');
+let _name = 'ButtonAnimation';
 
 _directory.onclick = function (event) {
   document.documentElement.scrollTop = 0;
@@ -9,9 +9,9 @@ _directory.onclick = function (event) {
   const Length = _children.length;
 
   for (let i = 0; i < Length; i++) {
-    _children[i].className = "directory-option";
+    _children[i].className = 'directory-option';
   }
-  if (_target.className.includes("directory-option")) {
+  if (_target.className.includes('directory-option')) {
     _name = _target.innerText;
     _target.className = `directory-option choose-option`;
     _components.innerHTML = updateText();
@@ -22,19 +22,18 @@ _components.innerHTML = updateText();
 _directory.innerHTML = directoryText();
 
 function directoryText() {
-  const Lenth = components.length;
-  let _element = "";
-  for (let i = 0; i < Lenth; i++) {
-    let _className = "directory-option";
-    if (components[i] === _name) {
-      _className = "directory-option choose-option";
+  let _element = '';
+  for (let key in dataArr) {
+    let _className = 'directory-option';
+    if (key === _name) {
+      _className = 'directory-option choose-option';
     }
-    _element += `<li class="${_className}">${components[i]}</li>`;
+    _element += `<li class="${_className}">${key}</li>`;
   }
   return _element;
 }
 
-function updateText(_arr = dataArr[_name], _dom = "") {
+function updateText(_arr = dataArr[_name], _dom = '') {
   const {
     title,
     text,
@@ -47,39 +46,39 @@ function updateText(_arr = dataArr[_name], _dom = "") {
     special,
     chilren,
   } = _arr;
-  let _element = "";
+  let _element = '';
   _element += _dom;
   _element += `
   <h3 class="content-title">${title}</h3>
     <div class="content-body">
       <p class="content-text">${text}</p>
-      ${reference ? referenceFun(reference) : ""}
-      ${tbody ? tbodyFun(tbody) : ""}
+      ${reference ? referenceFun(reference) : ''}
+      ${tbody ? tbodyFun(tbody) : ''}
     `;
   if (codeSandboxReact || githubReact) {
     _element += `<div class="body-codeSandbox">
     <span>React:</span>
     ${
       codeSandboxReact
-        ? codeSandboxFun(codeSandboxReact, "react", "codeSandbox")
-        : ""
+        ? codeSandboxFun(codeSandboxReact, 'react', 'codeSandbox')
+        : ''
     }
-    ${githubReact ? codeSandboxFun(githubReact) : ""}
+    ${githubReact ? codeSandboxFun(githubReact) : ''}
     </div>`;
   }
   if (codeSandboxVue || githubVue) {
     _element += `<div class="body-codeSandbox">
     <span>Vue:</span>
     ${
-      codeSandboxVue ? codeSandboxFun(codeSandboxVue, "vue", "codeSandbox") : ""
+      codeSandboxVue ? codeSandboxFun(codeSandboxVue, 'vue', 'codeSandbox') : ''
     }
-    ${githubVue ? codeSandboxFun(githubVue, "vue") : ""}
+    ${githubVue ? codeSandboxFun(githubVue, 'vue') : ''}
     </div>`;
   }
   if (special) {
     _element += `<p class="special-text">${special}</p>`;
   }
-  _element += "</div>";
+  _element += '</div>';
   if (chilren && chilren.length > 0) {
     const Length = chilren.length;
     for (let i = 0; i < Length; i++) {
@@ -119,15 +118,15 @@ function tbodyFun(tbody) {
       <td>${tbody[i].default}</td>
     </tr>`;
   }
-  _element += "</tbody></table>";
+  _element += '</tbody></table>';
   return _element;
 }
 
-function codeSandboxFun(url, type = "react", website = "github") {
+function codeSandboxFun(url, type = 'react', website = 'github') {
   const _element = `
        <div class="body-codeSandbox-content">
             ${
-              website === "codeSandbox"
+              website === 'codeSandbox'
                 ? `
             <svg
               t="1646549870371"
