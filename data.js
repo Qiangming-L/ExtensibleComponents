@@ -6,7 +6,7 @@ const dataArr = {
       {
         propsName: 'children',
         instructions: '子元素',
-        type: 'ReactNode',
+        type: 'HTML',
         default: '-',
       },
     ],
@@ -309,7 +309,7 @@ const dataArr = {
           {
             propsName: '[children]',
             instructions: '子元素',
-            type: 'ReactNode',
+            type: 'HTML',
             default: '-',
           },
           {

@@ -20,6 +20,10 @@ ol {
 .header-introduction {
   margin: 50px auto;
 }
+.header-languages{
+  color: rgb(233, 113, 113);
+  text-decoration: none;
+}
 .header-github {
   color: #fff;
   text-decoration: dashed;
